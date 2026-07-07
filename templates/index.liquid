@@ -1,0 +1,18 @@
+{% schema %}
+{"name":"Homepage","settings":[{"type":"image_picker","id":"hero_background","label":"Hero Image"},{"type":"text","id":"hero_heading","label":"Hero Heading","default":"Welcome"},{"type":"richtext","id":"hero_subtitle","label":"Subtitle"},{"type":"url","id":"hero_link","label":"Button Link"},{"type":"text","id":"hero_text","label":"Button Text","default":"Shop Now"}]}
+{% endschema %}
+{%- style -%}
+.hero-section { background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url({{ section.settings.hero_background | img_url: '2000x' }}); background-size: cover; background-position: center; min-height: 60vh; display: flex; align-items: center; color: white; text-align: center; padding: 100px 20px; }
+.hero-title { font-size: 3rem; margin-bottom: 20px; }
+.hero-text { font-size: 1.2rem; line-height: 1.6; margin-bottom: 30px; }
+{%- endstyle -%}
+<div class="hero-section">
+<div class="container">
+{% if section.settings.hero_heading != blank %}<h1 class="hero-title">{{ section.settings.hero_heading }}</h1>{% endif %}
+{% if section.settings.hero_subtitle != blank %}<div class="hero-text">{{ section.settings.hero_subtitle }}</div>{% endif %}
+{% if section.settings.hero_link != blank %}<a href="{{ section.settings.hero_link }}" class="btn btn-primary btn-large">{{ section.settings.hero_text }}</a>{% endif %}
+</div>
+</div>
+{% section 'featured-collection' %}
+{% section 'featured-product' %}
+{% section 'newsletter' %}
