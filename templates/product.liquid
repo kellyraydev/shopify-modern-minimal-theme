@@ -1,0 +1,40 @@
+{% assign current_variant = product.selected_or_first_available_variant %}
+{%- style -%}
+.product-template { padding: 40px 0; }
+.product-container { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; max-width: 1200px; margin: 0 auto; }
+.product-image-main { width: 100%; height: auto; border-radius: 8px; }
+.product-title { font-size: 2rem; margin-bottom: 10px; }
+.product-price { font-size: 1.5rem; color: #000000; margin-bottom: 20px; }
+.product-description { margin-bottom: 30px; line-height: 1.6; }
+.quantity-selector { display: flex; align-items: center; gap: 10px; margin-bottom: 20px; }
+.quantity-input { width: 60px; text-align: center; padding: 8px; border: 1px solid #ddd; border-radius: 4px; }
+.btn-add-to-cart { padding: 12px 30px; background: #000000; color: #ffffff; border: none; border-radius: 4px; cursor: pointer; }
+@media (max-width: 992px) { .product-container { grid-template-columns: 1fr; } }
+{%- endstyle -%}
+<div class="container product-template">
+<div class="product-container">
+<div>
+<img src="{{ product.featured_image | img_url: '800x' }}" alt="{{ product.featured_image.alt | escape }}" class="product-image-main">
+</div>
+<div>
+<h1 class="product-title">{{ product.title }}</h1>
+<div class="product-price">{{ current_variant.price | money }}</div>
+<div class="product-description">{{ product.description }}</div>
+<form method="post" action="/cart/add">
+<input type="hidden" name="id" value="{{ current_variant.id }}">
+<div class="quantity-selector">
+<button type="button" onclick="updateQty(-1)">-</button>
+<input type="number" name="quantity" value="1" min="1" class="quantity-input">
+<button type="button" onclick="updateQty(1)">+</button>
+</div>
+<button type="submit" class="btn-add-to-cart">Add to Cart</button>
+</form>
+</div>
+</div>
+</div>
+<script>
+function updateQty(change) {
+var input = document.querySelector('.quantity-input');
+input.value = Math.max(1, parseInt(input.value) + change);
+}
+</script>
