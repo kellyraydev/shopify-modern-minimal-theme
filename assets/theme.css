@@ -1,0 +1,34 @@
+/* Modern Minimal Shopify Theme */
+:root {
+  --color-primary: #000000;
+  --color-primary-text: #ffffff;
+  --color-primary-dark: #333333;
+  --color-secondary: #666666;
+  --color-text: #333333;
+  --color-background: #ffffff;
+  --color-border: #e0e0e0;
+  --font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --spacing-small: 10px;
+  --spacing-medium: 20px;
+  --spacing-large: 40px;
+  --border-radius-small: 4px;
+  --border-radius-medium: 8px;
+  --shadow-small: 0 2px 5px rgba(0,0,0,0.1);
+  --transition-fast: 0.2s ease;
+  --transition-normal: 0.3s ease;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body { font-family: var(--font-family); color: var(--color-text); background: var(--color-background); }
+
+a { color: var(--color-primary); text-decoration: none; }
+
+.container { width: 100%; max-width: 1200px; margin: 0 auto; padding: 0 var(--spacing-medium); }
+
+.btn { display: inline-block; padding: 12px 24px; border-radius: var(--border-radius-small); font-weight: 600; cursor: pointer; transition: all var(--transition-normal); }
+.btn-primary { background: var(--color-primary); color: var(--color-primary-text); border: 2px solid var(--color-primary); }
+.btn-primary:hover { background: var(--color-primary-dark); }
+
+@media (max-width: 768px) { html { font-size: 15px; } }
+@media (max-width: 480px) { html { font-size: 14px; } }
