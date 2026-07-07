@@ -1,0 +1,64 @@
+{%- style -%}
+.header { background: white; box-shadow: 0 2px 10px rgba(0,0,0,0.1); position: sticky; top: 0; z-index: 1000; }
+.header-main { padding: 15px 0; max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; padding-left: 20px; padding-right: 20px; }
+.header-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; color: #000000; }
+.header-logo-img { height: 40px; width: auto; }
+.header-nav { display: flex; gap: 30px; align-items: center; }
+.header-nav-link { text-decoration: none; color: #333; font-weight: 500; padding: 10px 0; transition: color 0.3s; }
+.header-nav-link:hover { color: #000000; }
+.header-actions { display: flex; gap: 15px; align-items: center; }
+.header-action-icon { font-size: 1.2rem; color: #333; transition: color 0.3s; }
+.header-action-count { position: absolute; top: -8px; right: -8px; background: #000000; color: #ffffff; border-radius: 50%; width: 18px; height: 18px; font-size: 0.7rem; display: flex; align-items: center; justify-content: center; }
+.header-search-input { padding: 8px 40px 8px 15px; border: 1px solid #ddd; border-radius: 20px; width: 200px; transition: width 0.3s, border-color 0.3s; }
+.header-search-input:focus { outline: none; border-color: #000000; width: 250px; }
+.mobile-menu-btn { display: none; background: none; border: none; font-size: 1.5rem; cursor: pointer; color: #333; }
+@media (max-width: 992px) { .header-nav { display: none; } .mobile-menu-btn { display: block; } }
+{%- endstyle -%}
+
+{% schema %}
+{
+  "name": "Header",
+  "settings": [
+    {"type": "image_picker", "id": "logo_image", "label": "Logo Image"},
+    {"type": "text", "id": "logo_text", "label": "Logo Text", "default": "{{ shop.name }}"},
+    {"type": "color", "id": "color_primary", "label": "Primary Color", "default": "#000000"},
+    {"type": "color", "id": "color_primary_text", "label": "Primary Text Color", "default": "#ffffff"},
+    {"type": "text", "id": "google_tag_manager_id", "label": "Google Tag Manager ID"}
+  ]
+}
+{% endschema %}
+
+<div class="header">
+  <div class="header-main">
+    <a href="/" class="header-logo">
+      {% if section.settings.logo_image != blank %}
+        <img src="{{ section.settings.logo_image | img_url: '400x' }}" alt="{{ shop.name }}" class="header-logo-img">
+      {% endif %}
+      {% if section.settings.logo_text != blank %}
+        <span>{{ section.settings.logo_text }}</span>
+      {% endif %}
+    </a>
+    <nav class="header-nav">
+      {% for link in linklists.main-menu.links %}
+        <a href="{{ link.url }}" class="header-nav-link {% if link.active %}active{% endif %}">{{ link.title }}</a>
+      {% endfor %}
+    </nav>
+    <div class="header-actions">
+      <form action="/search" method="get" class="search-form">
+        <input type="text" name="q" placeholder="Search..." class="header-search-input">
+      </form>
+      <a href="/account" class="header-action">
+        <i class="fas fa-user header-action-icon"></i>
+      </a>
+      <a href="/cart" class="header-action">
+        <i class="fas fa-shopping-cart header-action-icon"></i>
+        {% if cart.item_count > 0 %}
+          <span class="header-action-count">{{ cart.item_count }}</span>
+        {% endif %}
+      </a>
+      <button class="mobile-menu-btn">
+        <i class="fas fa-bars"></i>
+      </button>
+    </div>
+  </div>
+</div>
