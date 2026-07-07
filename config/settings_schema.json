@@ -1,0 +1,92 @@
+{
+  "name": "Modern Minimal Theme",
+  "description": "A clean, modern, and minimal Shopify theme with responsive design and essential e-commerce features.",
+  "author": "Kelly Dev",
+  "version": "1.0.0",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Theme Settings"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_announcement_bar",
+      "label": "Show Announcement Bar",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "announcement_bar_text",
+      "label": "Announcement Bar Text",
+      "default": "Free shipping on all orders over $50"
+    },
+    {
+      "type": "color",
+      "id": "announcement_bar_color",
+      "label": "Announcement Bar Color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "announcement_bar_text_color",
+      "label": "Announcement Bar Text Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "color_primary",
+      "label": "Primary Color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "color_primary_text",
+      "label": "Primary Text Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "color_primary_dark",
+      "label": "Primary Dark Color",
+      "default": "#333333"
+    },
+    {
+      "type": "color",
+      "id": "color_secondary",
+      "label": "Secondary Color",
+      "default": "#666666"
+    },
+    {
+      "type": "color",
+      "id": "color_background",
+      "label": "Background Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "color_text",
+      "label": "Text Color",
+      "default": "#333333"
+    },
+    {
+      "type": "color",
+      "id": "color_border",
+      "label": "Border Color",
+      "default": "#e0e0e0"
+    },
+    {
+      "type": "header",
+      "content": "Analytics"
+    },
+    {
+      "type": "text",
+      "id": "google_tag_manager_id",
+      "label": "Google Tag Manager ID",
+      "info": "e.g., GTM-XXXXXX"
+    }
+  ]
+}
