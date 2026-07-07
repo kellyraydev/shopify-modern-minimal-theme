@@ -1,0 +1,13 @@
+/* Modern Minimal Shopify Theme */
+:root {
+  --color-primary: #000000;
+  --color-primary-text: #ffffff;
+  --color-text: #333333;
+  --font-family: -apple-system, sans-serif;
+}
+
+body { font-family: var(--font-family); color: var(--color-text); }
+a { color: var(--color-primary); }
+.container { max-width: 1200px; margin: 0 auto; }
+.btn { padding: 12px 24px; }
+.btn-primary { background: var(--color-primary); color: var(--color-primary-text); }
