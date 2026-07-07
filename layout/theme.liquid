@@ -5,58 +5,26 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="{{ page_description | escape }}">
   <title>{{ page_title }}</title>
-  
   {{ 'theme.css' | asset_url | stylesheet_tag }}
   {{ 'theme.js' | asset_url | script_tag }}
-  
   <link rel="icon" href="{{ 'favicon.ico' | asset_url }}" type="image/x-icon">
-  <meta name="theme-color" content="{{ section.settings.color_primary | default: '#000000' }}">
-  
+  <meta name="theme-color" content="#000000">
   {{ 'shopify_common.js' | shopify_asset_url | script_tag }}
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  
-  <meta itemprop="name" content="{{ shop.name }}">
-  <meta itemprop="url" content="{{ shop.url }}">
-  <meta itemprop="logo" content="{{ 'logo.png' | asset_url }}">
-  
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="{{ shop.name }}">
   <meta property="og:title" content="{{ page_title }}">
-  <meta property="og:description" content="{{ page_description | escape }}">
   <meta property="og:url" content="{{ canonical_url }}">
-  <meta property="og:image" content="{{ 'social-sharing.png' | asset_url }}">
-  
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="{{ page_title }}">
-  <meta name="twitter:description" content="{{ page_description | escape }}">
-  <meta name="twitter:image" content="{{ 'social-sharing.png' | asset_url }}">
-  
   <link rel="canonical" href="{{ canonical_url }}">
-  
   {% render 'announcement-bar' %}
 </head>
-
 <body class="template-{{ template | handle }}">
-  {% if section.settings.google_tag_manager_id != blank %}
-    <noscript>
-      <iframe src="//www.googletagmanager.com/ns.html?id={{ section.settings.google_tag_manager_id }}" height="0" width="0" style="display:none;visibility:hidden"></iframe>
-    </noscript>
-  {% endif %}
-  
   <div class="page-wrapper">
-    {% if section.settings.google_tag_manager_id != blank %}
-      <script>
-        (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start': new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','{{ section.settings.google_tag_manager_id }}');
-      </script>
-    {% endif %}
-    
     {% section 'header' %}
-    
     <main class="main-content" role="main">
       {{ content_for_index }}
       {% render 'breadcrumbs' %}
     </main>
-    
     {% section 'footer' %}
   </div>
 </body>
