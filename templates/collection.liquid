@@ -1,0 +1,71 @@
+{%- style -%}
+.collection-template { padding: 40px 0; }
+.collection-header { text-align: center; margin-bottom: 40px; }
+.collection-title { font-size: 2.5rem; margin-bottom: 10px; }
+.collection-description { max-width: 800px; margin: 0 auto; line-height: 1.6; }
+.collection-filters { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; flex-wrap: wrap; gap: 15px; }
+.collection-view { display: flex; gap: 10px; }
+.view-btn { padding: 8px 16px; background: #f5f5f5; border: none; cursor: pointer; border-radius: 4px; }
+.view-btn.active { background: {{ section.settings.color_primary }}; color: {{ section.settings.color_primary_text | default: '#ffffff' }}; }
+.collection-sort { display: flex; align-items: center; gap: 10px; }
+.collection-sort-select { padding: 8px 12px; border: 1px solid #ddd; border-radius: 4px; cursor: pointer; }
+.products-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 30px; }
+.product-card { background: white; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 10px rgba(0,0,0,0.1); transition: transform 0.3s, box-shadow 0.3s; }
+.product-card:hover { transform: translateY(-5px); box-shadow: 0 5px 20px rgba(0,0,0,0.15); }
+.product-card-image { width: 100%; height: 250px; object-fit: cover; }
+.product-card-content { padding: 20px; }
+.product-card-title { font-size: 1.1rem; margin-bottom: 8px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.product-card-price { font-size: 1.2rem; color: {{ section.settings.color_primary }}; font-weight: 600; }
+.product-card-price .compare-price { text-decoration: line-through; color: #999; font-size: 0.9rem; margin-right: 8px; }
+{%- endstyle -%}
+
+<div class="container collection-template">
+  <div class="collection-header">
+    <h1 class="collection-title">{{ collection.title }}</h1>
+    {% if collection.description != blank %}<div class="collection-description">{{ collection.description }}</div>{% endif %}
+  </div>
+  <div class="collection-filters">
+    <div class="collection-view">
+      <button class="view-btn active" onclick="changeView('grid')"></i class="fas fa-th"></i></button>
+      <button class="view-btn" onclick="changeView('list')"></i class="fas fa-list"></i></button>
+    </div>
+    <div class="collection-sort">
+      <span>Sort by:</span>
+      <select class="collection-sort-select" onchange="sortProducts(this.value)">
+        <option value="manual">Featured</option>
+        <option value="price-ascending">Price: Low to High</option>
+        <option value="price-descending">Price: High to Low</option>
+        <option value="title-ascending">A-Z</option>
+        <option value="title-descending">Z-A</option>
+        <option value="created-descending">Newest</option>
+        <option value="best-selling">Best Selling</option>
+      </select>
+    </div>
+  </div>
+  <div class="products-grid" id="products-grid">
+    {% for product in collection.products %}
+      <div class="product-card">
+        {% if product.featured_image %}</a href="{{ product.url }}"><img src="{{ product.featured_image | img_url: '400x' }}" alt="{{ product.featured_image.alt | escape }}" class="product-card-image"></a>{% endif %}
+        {% if product.compare_at_price > product.price %}<span class="product-card-badge">Sale</span>{% endif %}
+        <div class="product-card-content">
+          <h3 class="product-card-title"></a href="{{ product.url }}">{{ product.title }}</a></h3>
+          <div class="product-card-price">{% if product.compare_at_price > product.price %}<span class="compare-price">{{ product.compare_at_price | money }}</span>{% endif %}{{ product.price | money }}</div>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+  {% if paginate.pages > 1 %}<div style="margin-top: 40px; display: flex; justify-content: center;">{% render 'pagination', paginate: paginate %}</div>{% endif %}
+<script>
+function changeView(view) {
+  var grid = document.getElementById('products-grid');
+  var buttons = document.querySelectorAll(.view-btn');
+  buttons.forEach(function(btn) { btn.classList.remove('active'); });
+  event.target.classList.add('active');
+  if (view === 'list') grid.style.gridTemplateColumns = '1fr';
+  else grid.style.gridTemplateColumns = 'repeat(auto-fill, minmax(280px, 1fr))';
+}
+function sortProducts(sortBy) {
+  var url = new URL(window.location);
+  url.searchParams.set('sort_by', sortBy);
+  window.location.href = url.toString();
+}</script>
